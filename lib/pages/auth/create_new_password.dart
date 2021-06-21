@@ -37,14 +37,14 @@ class _CreatePasswordFormState extends State<CreatePasswordForm> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  Future resetPassword(String email) async {
+  Future resetPassword(String uid, String token, String pass) async {
     final response = await http.post(
       Uri.parse('http://localhost:8000/api/v1/dj-rest-auth/password/reset/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, dynamic>{
-        'email': email,
+        'uid': uid,
       }),
     );
 
@@ -79,7 +79,12 @@ class _CreatePasswordFormState extends State<CreatePasswordForm> {
 
   _submitForm() {
     if (_formKey.currentState!.validate()) {
-      resetPassword(_uniqueController.text);
+      // resetPassword(_uniqueController.text);
+      var uids = _uniqueController.text.split('.');
+
+      String uid = uids[0];
+      String token = uids[1];
+      print("$uid : $token");
     }
   }
 
@@ -116,9 +121,18 @@ class _CreatePasswordFormState extends State<CreatePasswordForm> {
                   labelText: 'Unique Code*',
                 ),
                 validator: (value) {
+                  // Check 1
                   if (value == null || value.isEmpty) {
                     return "Please enter the code you received";
                   }
+
+                  // Check 2
+                  var uids = value.split('.');
+                  if (uids.length <= 1 || uids.length > 2) {
+                    return "Invalid token";
+                  }
+
+                  // All good
                   return null;
                 },
               ),
