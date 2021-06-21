@@ -17,19 +17,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SignInScreen(),
+        '/second': (context) => ForgotPasswordScreen(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+class SignInScreen extends StatefulWidget {
+  SignInScreen({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -221,13 +225,31 @@ class _SignInFormState extends State<SignInForm> {
                     padding: EdgeInsets.all(20.0),
                   ),
                   onPressed: () {
-                    // TODO: do sth
-                    return;
+                    Navigator.pushNamed(context, '/second');
                   },
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ForgotPasswordScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Forgot Password"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/');
+          },
+          child: Text('Go back!'),
         ),
       ),
     );
