@@ -16,8 +16,8 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
       body: Center(
         child: Card(
           child: Padding(
-            padding: EdgeInsets.all(18.0),
-            child: SignInForm(),
+            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 5.0),
+            child: PasswordResetForm(),
           ),
         ),
       ),
@@ -25,12 +25,12 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
   }
 }
 
-class SignInForm extends StatefulWidget {
+class PasswordResetForm extends StatefulWidget {
   @override
-  _SignInFormState createState() => _SignInFormState();
+  _PasswordResetFormState createState() => _PasswordResetFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _PasswordResetFormState extends State<PasswordResetForm> {
   final _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
@@ -110,13 +110,25 @@ class _SignInFormState extends State<SignInForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
+              padding: EdgeInsets.only(bottom: 5.0),
+              child: Center(
+                child: Text(
+                  'Reset Password',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 50,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
               padding: EdgeInsets.only(bottom: 15.0),
               child: Center(
                 child: Text(
-                  'Sign In',
+                  'Enter your email to reset your password',
                   style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 50,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -140,25 +152,6 @@ class _SignInFormState extends State<SignInForm> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 15.0),
-              child: TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
-                  labelText: 'Password*',
-                ),
-                obscureText: true,
-                autocorrect: false,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your password";
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 15.0),
               child: Text(
                 'Fields marked with * sign are required',
                 style: TextStyle(
@@ -171,7 +164,7 @@ class _SignInFormState extends State<SignInForm> {
               child: Container(
                 width: double.infinity,
                 child: TextButton(
-                  child: Text('Sign In'),
+                  child: Text('Reset Password'),
                   style: TextButton.styleFrom(
                     primary: Colors.white,
                     backgroundColor: Colors.blue,
@@ -184,14 +177,27 @@ class _SignInFormState extends State<SignInForm> {
             Padding(
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
               child: Center(
-                child: TextButton(
-                  child: Text('Forgot password'),
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.all(20.0),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/forgot-password');
-                  },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Remember your password?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        // fontSize: 16,
+                      ),
+                    ),
+                    TextButton(
+                      child: Text('Sign in here'),
+                      style: TextButton.styleFrom(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/sign-in');
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),

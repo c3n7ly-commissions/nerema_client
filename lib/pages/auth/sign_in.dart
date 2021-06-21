@@ -117,7 +117,7 @@ class _SignInFormState extends State<SignInForm> {
                 child: Text(
                   'Sign In',
                   style: TextStyle(
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     fontSize: 50,
                   ),
                 ),
