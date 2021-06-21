@@ -49,10 +49,16 @@ class SignInForm extends StatefulWidget {
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
 
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   _submitForm() {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Success')),
+        SnackBar(
+          content: Text(
+              'Success: ${_emailController.text} vs ${_passwordController.text}'),
+        ),
       );
     }
   }
@@ -83,6 +89,7 @@ class _SignInFormState extends State<SignInForm> {
             Padding(
               padding: EdgeInsets.only(top: 15.0),
               child: TextFormField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'E-mail',
@@ -99,6 +106,7 @@ class _SignInFormState extends State<SignInForm> {
             Padding(
               padding: EdgeInsets.only(top: 15.0),
               child: TextFormField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Password',
