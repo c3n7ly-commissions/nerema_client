@@ -49,6 +49,14 @@ class SignInForm extends StatefulWidget {
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
 
+  _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Success')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -80,6 +88,12 @@ class _SignInFormState extends State<SignInForm> {
                   hintText: 'E-mail',
                   labelText: 'E-mail*',
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your e-mail";
+                  }
+                  return null;
+                },
               ),
             ),
             Padding(
@@ -92,6 +106,12 @@ class _SignInFormState extends State<SignInForm> {
                 ),
                 obscureText: true,
                 autocorrect: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your password";
+                  }
+                  return null;
+                },
               ),
             ),
             Padding(
@@ -114,10 +134,7 @@ class _SignInFormState extends State<SignInForm> {
                     backgroundColor: Colors.blue,
                     padding: EdgeInsets.symmetric(vertical: 20.0),
                   ),
-                  onPressed: () {
-                    return;
-                    // TODO: do sth
-                  },
+                  onPressed: _submitForm,
                 ),
               ),
             ),
