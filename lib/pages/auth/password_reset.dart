@@ -50,22 +50,7 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
       // Successful request
       print("${response.statusCode} : ${response.body}");
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: <Widget>[
-              Text(
-                "Success: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text('Reset details have been sent to your e-mail'),
-            ],
-          ),
-          backgroundColor: Colors.green,
-        ),
-      );
+      Navigator.pushNamed(context, '/reset-email-sent');
     } else if (response.statusCode == 400) {
       print("${response.statusCode} : ${response.body}");
 
@@ -174,29 +159,21 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Remember your password?',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        // fontSize: 16,
-                      ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Remember your password?'),
+                  TextButton(
+                    child: Text('Sign in here'),
+                    style: TextButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                     ),
-                    TextButton(
-                      child: Text('Sign in here'),
-                      style: TextButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/sign-in');
-                      },
-                    ),
-                  ],
-                ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/sign-in');
+                    },
+                  ),
+                ],
               ),
             ),
           ],
