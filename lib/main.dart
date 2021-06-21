@@ -80,30 +80,50 @@ class _SignInFormState extends State<SignInForm> {
       }),
     );
 
-    print(response.body);
-    return;
-
-    if (response.statusCode == 201) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-      print(response.body);
-      // return Album.fromJson(jsonDecode(response.body));
+    if (response.statusCode == 200) {
+      // Successful request
+      print("${response.statusCode} : ${response.body}");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: <Widget>[
+              Text(
+                "Success: ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text('Logged in successfully'),
+            ],
+          ),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else if (response.statusCode == 400) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: <Widget>[
+              Text(
+                "Error: ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text('Invalid credentials'),
+            ],
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      throw Exception('Failed to create album.');
+      print("${response.statusCode} : ${response.body}");
     }
   }
 
   _submitForm() {
     if (_formKey.currentState!.validate()) {
       signIn(_emailController.text, _passwordController.text);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-              'Success: ${_emailController.text} vs ${_passwordController.text}'),
-        ),
-      );
     }
   }
 
