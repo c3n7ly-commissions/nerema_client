@@ -90,6 +90,8 @@ class _SignInFormState extends State<SignInForm> {
                   hintText: 'Password',
                   labelText: 'Password*',
                 ),
+                obscureText: true,
+                autocorrect: false,
               ),
             ),
             Padding(
