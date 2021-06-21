@@ -82,7 +82,9 @@ class _SignInFormState extends State<SignInForm> {
 
     if (response.statusCode == 200) {
       // Successful request
+      final Map<String, dynamic> token = jsonDecode(response.body);
       print("${response.statusCode} : ${response.body}");
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Row(
@@ -93,7 +95,7 @@ class _SignInFormState extends State<SignInForm> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text('Logged in successfully'),
+              Text('Logged in successfully ${token["key"]}'),
             ],
           ),
           backgroundColor: Colors.green,
