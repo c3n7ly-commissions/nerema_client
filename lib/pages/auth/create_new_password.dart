@@ -33,7 +33,9 @@ class CreatePasswordForm extends StatefulWidget {
 class _CreatePasswordFormState extends State<CreatePasswordForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final _emailController = TextEditingController();
+  final _uniqueController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   Future resetPassword(String email) async {
     final response = await http.post(
@@ -77,7 +79,7 @@ class _CreatePasswordFormState extends State<CreatePasswordForm> {
 
   _submitForm() {
     if (_formKey.currentState!.validate()) {
-      resetPassword(_emailController.text);
+      resetPassword(_uniqueController.text);
     }
   }
 
@@ -93,25 +95,13 @@ class _CreatePasswordFormState extends State<CreatePasswordForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(bottom: 5.0),
+              padding: EdgeInsets.only(bottom: 15.0),
               child: Center(
                 child: Text(
                   'Create New Password',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: 50,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15.0),
-              child: Center(
-                child: Text(
-                  'Enter your email to reset your password',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
+                    fontSize: 40,
                   ),
                 ),
               ),
@@ -119,15 +109,55 @@ class _CreatePasswordFormState extends State<CreatePasswordForm> {
             Padding(
               padding: EdgeInsets.only(top: 15.0),
               child: TextFormField(
-                controller: _emailController,
+                controller: _uniqueController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'E-mail',
-                  labelText: 'E-mail*',
+                  hintText: 'Unique Code',
+                  labelText: 'Unique Code*',
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter your e-mail";
+                    return "Please enter the code you received";
+                  }
+                  return null;
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 15.0),
+              child: TextFormField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Password',
+                  labelText: 'Password*',
+                ),
+                obscureText: true,
+                autocorrect: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your new password";
+                  }
+                  return null;
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 15.0),
+              child: TextFormField(
+                controller: _confirmPasswordController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Password',
+                  labelText: 'Confirm Password*',
+                ),
+                obscureText: true,
+                autocorrect: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your new password again";
+                  } else if (value != _passwordController.text) {
+                    return "Passwords do not match.";
                   }
                   return null;
                 },
