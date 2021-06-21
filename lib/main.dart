@@ -33,18 +33,32 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Card(
           child: Padding(
             padding: EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Nerema Enterprise Resource Manager',
-                ),
-              ],
-            ),
+            child: SignInForm(),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SignInForm extends StatefulWidget {
+  @override
+  _SignInFormState createState() => _SignInFormState();
+}
+
+class _SignInFormState extends State<SignInForm> {
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Yay, a form',
+          ),
+        ],
       ),
     );
   }
