@@ -3,6 +3,7 @@ import 'package:nerema_client/pages/auth/password_reset_sent.dart';
 import 'pages/auth/sign_in.dart';
 import 'pages/auth/password_reset.dart';
 import 'pages/auth/password_reset_sent.dart';
+import 'pages/auth/create_new_password.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/sign-in': (context) => SignInScreen(),
         '/forgot-password': (context) => PasswordResetScreen(),
         '/reset-email-sent': (context) => ResetEmailSentScreen(),
+        '/create-new-password': (context) => CreatePasswordScreen(),
       },
     );
   }

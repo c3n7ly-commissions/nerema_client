@@ -80,7 +80,7 @@ class _ResetEmailSentState extends State<ResetEmailSentScreen> {
                           padding: EdgeInsets.symmetric(vertical: 20.0),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/sign-in');
+                          Navigator.pushNamed(context, '/create-new-password');
                         },
                       ),
                     ),
