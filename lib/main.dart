@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -46,14 +50,54 @@ class SignInForm extends StatefulWidget {
   _SignInFormState createState() => _SignInFormState();
 }
 
+class AuthCredentials {
+  final String email;
+  final String password;
+
+  AuthCredentials({required this.email, required this.password});
+
+  // factory AuthCredentials.fromJson(Map<String, dynamic> json) {
+  //   return
+  // }
+}
+
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  Future signIn(String email, String password) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:8000/api/v1/dj-rest-auth/login/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'username': email,
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    print(response.body);
+    return;
+
+    if (response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      print(response.body);
+      // return Album.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+
   _submitForm() {
     if (_formKey.currentState!.validate()) {
+      signIn(_emailController.text, _passwordController.text);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
