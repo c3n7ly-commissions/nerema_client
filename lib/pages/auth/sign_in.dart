@@ -32,17 +32,6 @@ class SignInForm extends StatefulWidget {
   _SignInFormState createState() => _SignInFormState();
 }
 
-class AuthCredentials {
-  final String email;
-  final String password;
-
-  AuthCredentials({required this.email, required this.password});
-
-  // factory AuthCredentials.fromJson(Map<String, dynamic> json) {
-  //   return
-  // }
-}
-
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
 
