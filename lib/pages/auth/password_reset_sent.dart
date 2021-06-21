@@ -62,7 +62,7 @@ class _ResetEmailSentState extends State<ResetEmailSentScreen> {
                                 horizontal: 10, vertical: 15),
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/send-again');
+                            Navigator.pushNamed(context, '/forgot-password');
                           },
                         ),
                       ],
