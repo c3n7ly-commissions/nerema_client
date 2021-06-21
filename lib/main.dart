@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/auth/sign_in.dart';
-import 'pages/auth/forgot_password.dart';
+import 'pages/auth/password_reset.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/sign-in',
       routes: {
         '/sign-in': (context) => SignInScreen(),
-        '/forgot-password': (context) => ForgotPasswordScreen(),
+        '/forgot-password': (context) => PasswordResetScreen(),
       },
     );
   }
