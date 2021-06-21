@@ -34,24 +34,20 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
   final _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
 
-  Future signIn(String email, String password) async {
+  Future resetPassword(String email) async {
     final response = await http.post(
-      Uri.parse('http://localhost:8000/api/v1/dj-rest-auth/login/'),
+      Uri.parse('http://localhost:8000/api/v1/dj-rest-auth/password/reset/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, dynamic>{
-        'username': email,
         'email': email,
-        'password': password,
       }),
     );
 
     if (response.statusCode == 200) {
       // Successful request
-      final Map<String, dynamic> token = jsonDecode(response.body);
       print("${response.statusCode} : ${response.body}");
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -64,13 +60,15 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text('Logged in successfully ${token["key"]}'),
+              Text('Reset details have been sent to your e-mail'),
             ],
           ),
           backgroundColor: Colors.green,
         ),
       );
     } else if (response.statusCode == 400) {
+      print("${response.statusCode} : ${response.body}");
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Row(
@@ -94,7 +92,7 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
 
   _submitForm() {
     if (_formKey.currentState!.validate()) {
-      signIn(_emailController.text, _passwordController.text);
+      resetPassword(_emailController.text);
     }
   }
 
