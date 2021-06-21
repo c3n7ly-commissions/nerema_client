@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
+      initialRoute: '/sign-in',
       routes: {
-        '/': (context) => SignInScreen(),
-        '/second': (context) => ForgotPasswordScreen(),
+        '/sign-in': (context) => SignInScreen(),
+        '/forgot-password': (context) => ForgotPasswordScreen(),
       },
     );
   }
@@ -225,7 +225,7 @@ class _SignInFormState extends State<SignInForm> {
                     padding: EdgeInsets.all(20.0),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/second');
+                    Navigator.pushNamed(context, '/forgot-password');
                   },
                 ),
               ),
@@ -247,7 +247,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/sign-in');
           },
           child: Text('Go back!'),
         ),
