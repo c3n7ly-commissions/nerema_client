@@ -39,12 +39,18 @@ class _CreatePasswordFormState extends State<CreatePasswordForm> {
 
   Future resetPassword(String uid, String token, String pass) async {
     final response = await http.post(
-      Uri.parse('http://localhost:8000/api/v1/dj-rest-auth/password/reset/'),
+      // TODO: Wait for this to be fixed
+      // https://github.com/jazzband/dj-rest-auth/issues/269
+      Uri.parse(
+          'http://localhost:8000/api/v1/dj-rest-auth/password/reset/confirm/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, dynamic>{
         'uid': uid,
+        'token': token,
+        'new_password1': pass,
+        'new_password2': pass,
       }),
     );
 
@@ -79,12 +85,12 @@ class _CreatePasswordFormState extends State<CreatePasswordForm> {
 
   _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // resetPassword(_uniqueController.text);
       var uids = _uniqueController.text.split('.');
 
       String uid = uids[0];
       String token = uids[1];
-      print("$uid : $token");
+      print("$uid $token");
+      resetPassword(uid, token, _passwordController.text);
     }
   }
 
